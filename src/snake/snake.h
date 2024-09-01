@@ -25,6 +25,6 @@ class Snake {
 
  public:
   void draw(WINDOW* window);
-  void input(const char& input);
+  void input(const int& input);
   MoveState move(const Pellet& pellet);
 };

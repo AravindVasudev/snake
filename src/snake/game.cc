@@ -52,7 +52,7 @@ void Game::drawGameOver() {
 
 void Game::run() {
   while (true) {
-    char input = getch();
+    int input = getch();
     if (input == 'q') {
       break;
     }
@@ -61,7 +61,7 @@ void Game::run() {
     // Maybe it's cheaper to cleanup only the points where necessary but given
     // this is all running in a terminal, redrawing the whole frame barely
     // costs anything.
-    wclear(window);
+    werase(window);
     box(window, 0, 0);
 
     // Process snake's move.

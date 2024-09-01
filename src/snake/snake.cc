@@ -5,44 +5,64 @@
 
 #include "color.h"
 
-void Snake::input(const char& input) {
+void Snake::input(const int& input) {
   switch (input) {
     case 'w':
-      velocity.X = 0;
-      velocity.Y = -1;
+    case KEY_UP:
+      if (velocity.Y != 1) {
+        velocity.X = 0;
+        velocity.Y = -1;
+      }
+
       break;
     case 's':
-      velocity.X = 0;
-      velocity.Y = 1;
+    case KEY_DOWN:
+      if (velocity.Y != -1) {
+        velocity.X = 0;
+        velocity.Y = 1;
+      }
+
       break;
     case 'a':
-      velocity.X = -1;
-      velocity.Y = 0;
+    case KEY_LEFT:
+      if (velocity.X != 1) {
+        velocity.X = -1;
+        velocity.Y = 0;
+      }
       break;
     case 'd':
-      velocity.X = 1;
-      velocity.Y = 0;
+    case KEY_RIGHT:
+      if (velocity.X != -1) {
+        velocity.X = 1;
+        velocity.Y = 0;
+      }
+
       break;
   }
 }
 
 MoveState Snake::move(const Pellet& pellet) {
-  // Move the snake.
-  Point newPosition{head.X + velocity.X, head.Y + velocity.Y};
-
-  // Bound check.
-  if (newPosition.X <= 0 || newPosition.X >= WIDTH || newPosition.Y <= 0 ||
-      newPosition.Y >= HEIGHT) {
-    return MoveState::DEAD;
-  }
-
-  // Move the body.
+  // Move the tail.
   Point old = head;
   for (auto& t : tail) {
     std::swap(t, old);
   }
 
-  head = newPosition;
+  // Move the head.
+  head.X += velocity.X;
+  head.Y += velocity.Y;
+
+  // Bound check.
+  if (head.X <= 0 || head.X >= WIDTH || head.Y <= 0 || head.Y >= HEIGHT) {
+    return MoveState::DEAD;
+  }
+
+  // Check if the snake is eating it's own body.
+  for (const auto& t : tail) {
+    if (Point::doesOverlap(head, t)) {
+      return MoveState::DEAD;
+    }
+  }
 
   // Snake ate the pellet!
   if (Point::doesOverlap(head, pellet.position)) {
