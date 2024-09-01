@@ -2,12 +2,12 @@
 
 #include <curses.h>
 
-#include "snake.h"
 #include "pellet.h"
+#include "snake.h"
 
 class Game {
- private:
-  WINDOW* window;  // Game window.
+private:
+  WINDOW *window; // Game window.
   Snake snake;
   Pellet pellet;
   int score{};
@@ -15,7 +15,7 @@ class Game {
   void drawScore();
   void drawGameOver();
 
- public:
+public:
   Game();
   ~Game();
   void run();

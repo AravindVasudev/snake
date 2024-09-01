@@ -6,4 +6,6 @@
 enum Color {
   WindowC = 1,
   SnakeC,
+  PelletDefaultC,
+  PelletBlinkC,
 };

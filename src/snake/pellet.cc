@@ -10,7 +10,11 @@ void Pellet::move() {
 }
 
 void Pellet::draw(WINDOW* window) {
-  wattron(window, COLOR_PAIR(Color::SnakeC));
+  // Switch between colors.
+  Color color = blink ? Color::PelletBlinkC : Color::PelletDefaultC;
+  blink = !blink;
+
+  wattron(window, COLOR_PAIR(color));
   mvwprintw(window, position.Y, position.X, "*");
-  wattroff(window, COLOR_PAIR(Color::SnakeC));
+  wattroff(window, COLOR_PAIR(color));
 }

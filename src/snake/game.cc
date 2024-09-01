@@ -22,6 +22,8 @@ Game::Game() {
   start_color();
   init_pair(Color::WindowC, COLOR_BLACK, COLOR_GREEN);
   init_pair(Color::SnakeC, COLOR_BLACK, COLOR_GREEN);
+  init_pair(Color::PelletDefaultC, COLOR_WHITE, COLOR_GREEN);
+  init_pair(Color::PelletBlinkC, COLOR_RED, COLOR_GREEN);
 
   // Init game window.
   window = newwin(HEIGHT, WIDTH, 0, 0);

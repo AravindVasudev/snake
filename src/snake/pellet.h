@@ -6,9 +6,12 @@
 #include "point.h"
 
 class Pellet {
- public:
+private:
+  bool blink{};
+
+public:
   Point position{};
 
   void move();
-  void draw(WINDOW* window);
+  void draw(WINDOW *window);
 };
