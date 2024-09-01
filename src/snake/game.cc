@@ -1,6 +1,5 @@
 #include "game.h"
 
-#include <curses.h>
 #include <locale.h>
 #include <unistd.h>
 
@@ -9,7 +8,7 @@
 #include "constants.h"
 
 Game::Game() {
-  // Init Graphics.
+  // Init graphics.
   setlocale(LC_ALL, "");  // Get the terminal outta boomer-mode.
   initscr();
   keypad(stdscr, true);
@@ -17,6 +16,11 @@ Game::Game() {
   timeout(0);
   raw();
   noecho();
+
+  // Init game window.
+  window = newwin(HEIGHT, WIDTH, 0, 0);
+  refresh();
+  box(window, 0, 0);
 }
 
 void Game::run() {
@@ -26,8 +30,8 @@ void Game::run() {
       break;
     }
 
-    move(0, 0);
-    printw("Hello World!");
+    mvwprintw(window, 0, 1, "Hello World!");
+    wrefresh(window);
 
     // Handle frame rate.
     usleep(1000000 / FRAME_RATE);
