@@ -5,6 +5,7 @@
 
 #include <chrono>
 
+#include "color.h"
 #include "constants.h"
 
 Game::Game() {
@@ -17,11 +18,21 @@ Game::Game() {
   raw();
   noecho();
 
+  // Init Colors.
+  start_color();
+  init_pair(Color::WindowC, COLOR_BLACK, COLOR_GREEN);
+  init_pair(Color::SnakeC, COLOR_BLACK, COLOR_GREEN);
+
   // Init game window.
   window = newwin(HEIGHT, WIDTH, 0, 0);
   refresh();
+
+  // Style window.
+  wbkgd(window, COLOR_PAIR(Color::WindowC));
   box(window, 0, 0);
 }
+
+void Game::drawScore() { mvwprintw(window, 0, 2, "Score: %d", score); }
 
 void Game::run() {
   while (true) {
@@ -30,10 +41,12 @@ void Game::run() {
       break;
     }
 
-    mvwprintw(window, 0, 1, "Hello World!");
-    wrefresh(window);
+    // Draw all objects.
+    snake.draw(window);
+    drawScore();
 
-    // Handle frame rate.
+    // Refresh frame.
+    wrefresh(window);
     usleep(1000000 / FRAME_RATE);
   }
 }
