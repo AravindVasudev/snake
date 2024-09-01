@@ -1,6 +1,6 @@
 #pragma once
 
-constexpr int FRAME_RATE = 60;  // 60 FPS
+constexpr int FRAME_RATE = 6;  // 60 FPS
 
 // Game maze size.
 constexpr int WIDTH = 80;

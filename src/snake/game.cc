@@ -25,11 +25,9 @@ Game::Game() {
 
   // Init game window.
   window = newwin(HEIGHT, WIDTH, 0, 0);
-  refresh();
 
   // Style window.
   wbkgd(window, COLOR_PAIR(Color::WindowC));
-  box(window, 0, 0);
 }
 
 void Game::drawScore() { mvwprintw(window, 0, 2, "Score: %d", score); }
@@ -40,6 +38,19 @@ void Game::run() {
     if (input == 'q') {
       break;
     }
+
+    // Reinit frame.
+    // Maybe it's cheaper to cleanup only the points where necessary but given
+    // this is all running in a terminal, redrawing the whole frame barely
+    // costs anything.
+    wclear(window);
+    box(window, 0, 0);
+
+    // Process snake's move.
+    snake.input(input);
+
+    // Actually move the snake.
+    snake.move();
 
     // Draw all objects.
     snake.draw(window);
