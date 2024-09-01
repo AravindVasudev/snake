@@ -32,13 +32,13 @@ MoveState Snake::move(const Pellet& pellet) {
 
   // Bound check.
   if (newPosition.X <= 0 || newPosition.X >= WIDTH || newPosition.Y <= 0 ||
-      newPosition.Y >= HEIGHT - 2) {
+      newPosition.Y >= HEIGHT) {
     return MoveState::DEAD;
   }
 
   // Move the body.
   Point old = head;
-  for (auto& t : tail | std::views::reverse) {
+  for (auto& t : tail) {
     std::swap(t, old);
   }
 
@@ -54,9 +54,6 @@ MoveState Snake::move(const Pellet& pellet) {
 }
 
 void Snake::drawHead(WINDOW* window) {
-  if (velocity.Y == -1) {
-  }
-
   switch (velocity.Y) {
     case -1:
       mvwprintw(window, head.Y, head.X, "▲");
@@ -80,7 +77,7 @@ void Snake::draw(WINDOW* window) {
   wattron(window, COLOR_PAIR(Color::SnakeC));
   drawHead(window);
   for (const auto& t : tail) {
-    mvwprintw(window, t.Y, t.X, "◾");
+    mvwprintw(window, t.Y, t.X, "@");
   }
   wattroff(window, COLOR_PAIR(Color::SnakeC));
 }

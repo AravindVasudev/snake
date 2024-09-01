@@ -11,6 +11,6 @@ void Pellet::move() {
 
 void Pellet::draw(WINDOW* window) {
   wattron(window, COLOR_PAIR(Color::SnakeC));
-  mvwprintw(window, position.Y, position.X, "X");
+  mvwprintw(window, position.Y, position.X, "*");
   wattroff(window, COLOR_PAIR(Color::SnakeC));
 }

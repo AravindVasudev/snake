@@ -46,7 +46,7 @@ void Game::drawGameOver() {
   wclear(window);
   box(window, 0, 0);
   // TODO: Fix centering.
-  mvwprintw(window, HEIGHT / 2, WIDTH / 2, "You lost! Your score: %d", score);
+  mvwprintw(window, WIDTH / 2 - 3, HEIGHT / 2 - 3, "You lost! Your score: %d", score);
   wrefresh(window);
 }
 
