@@ -1,5 +1,13 @@
-#include <iostream>
+#include <curses.h>
+
+#include "snake/game.h"
 
 int main() {
-  std::cout << "Hello World!";
+  Game game;
+  game.run();
+
+  // Reset timeout and block.
+  timeout(-1);
+  getch();
+  endwin();
 }
