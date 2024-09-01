@@ -30,7 +30,22 @@ Game::Game() {
   wbkgd(window, COLOR_PAIR(Color::WindowC));
 }
 
+Game::~Game() {
+  // Reset timeout and block.
+  timeout(-1);
+  getch();
+  endwin();
+}
+
 void Game::drawScore() { mvwprintw(window, 0, 2, "Score: %d", score); }
+
+void Game::drawGameOver() {
+  wclear(window);
+  box(window, 0, 0);
+  // TODO: Fix centering.
+  mvwprintw(window, HEIGHT / 2, WIDTH / 2, "You lost! Your score: %d", score);
+  wrefresh(window);
+}
 
 void Game::run() {
   while (true) {
@@ -50,7 +65,12 @@ void Game::run() {
     snake.input(input);
 
     // Actually move the snake.
-    snake.move();
+    switch (snake.move()) {
+      case MoveState::DEAD:
+        // We dead :(
+        drawGameOver();
+        return;
+    }
 
     // Draw all objects.
     snake.draw(window);

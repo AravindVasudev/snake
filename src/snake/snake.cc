@@ -23,9 +23,18 @@ void Snake::input(const char& input) {
   }
 }
 
-void Snake::move() {
+MoveState Snake::move() {
+  // Move the snake.
   position.X += velocity.X;
   position.Y += velocity.Y;
+
+  // Bound check.
+  if (position.X <= 0 || position.X >= WIDTH || position.Y <= 0 ||
+      position.Y >= HEIGHT) {
+    return MoveState::DEAD;
+  }
+
+  return MoveState::NOOP;
 }
 
 void Snake::draw(WINDOW* window) {

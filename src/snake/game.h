@@ -11,8 +11,10 @@ class Game {
   int score{};
 
   void drawScore();
+  void drawGameOver();
 
  public:
   Game();
+  ~Game();
   void run();
 };
