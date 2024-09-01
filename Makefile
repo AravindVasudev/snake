@@ -1,6 +1,6 @@
 # Compiler setup.
 CXX := g++
-CXXFLAGS := $(INC_FLAGS) -std=c++17 -MMD -MP
+CXXFLAGS := $(INC_FLAGS) -std=c++20 -MMD -MP
 LDFLAGS := -lncurses
 
 # Build path & target.

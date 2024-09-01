@@ -2,9 +2,11 @@
 
 #include <curses.h>
 
+#include <vector>
+
 #include "constants.h"
-#include "point.h"
 #include "pellet.h"
+#include "point.h"
 
 // Possible outcomes of a move.
 enum MoveState {
@@ -15,8 +17,11 @@ enum MoveState {
 
 class Snake {
  private:
-  Point position{SNAKE_X, SNAKE_Y};
+  Point head{SNAKE_X, SNAKE_Y};
+  std::vector<Point> tail;
   Point velocity{-1, 0};
+
+  void drawHead(WINDOW* window);
 
  public:
   void draw(WINDOW* window);
