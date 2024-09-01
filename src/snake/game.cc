@@ -28,6 +28,9 @@ Game::Game() {
 
   // Style window.
   wbkgd(window, COLOR_PAIR(Color::WindowC));
+
+  // Randomize pellet position.
+  pellet.move();
 }
 
 Game::~Game() {
@@ -65,15 +68,22 @@ void Game::run() {
     snake.input(input);
 
     // Actually move the snake.
-    switch (snake.move()) {
+    switch (snake.move(pellet)) {
       case MoveState::DEAD:
         // We dead :(
         drawGameOver();
         return;
+      case MoveState::EAT:
+        score++;
+        pellet.move();  // Relocate the pellet.
+        break;
+      case MoveState::NOOP:
+        break;  //  NOOP
     }
 
     // Draw all objects.
     snake.draw(window);
+    pellet.draw(window);
     drawScore();
 
     // Refresh frame.
